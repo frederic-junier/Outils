@@ -46,7 +46,7 @@ with open(INDEX_JSON) as f:
         if DEBUG:
             print(f'Liste des sujets E3C2 en {nom_matiere} :')
             print(liste_sujets_e3c2)
-        for sujet in liste_sujets_e3c2[:2]:
+        for sujet in liste_sujets_e3c2:
             print(f"Téléchargement du sujet {sujet['name']} de la matière {nom_matiere}")
             if not Path(repertoire / sujet['name']).exists():
                 if DEBUG:
