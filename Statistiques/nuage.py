@@ -6,9 +6,6 @@ disposées verticalement avec le symbole ',' comme séparateur de champ
 d'équation y = a * x + b et reset pour afficher la droite de régression
 * usage en ligne de commande :
      python3 nuage.py  chemin_vers_fichier_csv [point moyen:True|False] [ajustement affine : True|False] [x label:str] [y label:str]
-par exemple : python3 nuage.py exemple1_cours.csv True True "Dépenses publicitaires" "Chiffres d'affaires"
-python3 nuage.py exemple1_cours.csv    sans option va générer juste le nuage
-Pas super pratique mais cela me suffit     
 """
 
 
@@ -45,7 +42,7 @@ def correlation_lineaire(x:List[float], y:List[float])->float:
     sigmay = ecart_type(y)
     return covxy /(sigmax * sigmay) 
 
-def moindres_carre(y1:List[int], y2:List[int])->float:
+def moindres_carre(y1:List[float], y2:List[float])->float:
     assert len(y1) == len(y2)
     return sum((y1[i] - y2[i]) ** 2 for i in range(len(y1)))
 
