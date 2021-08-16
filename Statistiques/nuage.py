@@ -6,6 +6,8 @@ disposées verticalement avec le symbole ',' comme séparateur de champ
 d'équation y = a * x + b et reset pour afficher la droite de régression
 * usage en ligne de commande :
      python3 nuage.py  chemin_vers_fichier_csv [point moyen:True|False] [ajustement affine : True|False] [x label:str] [y label:str]
+par exemple : python3 nuage.py exemple1_cours.csv True True "Dépenses publicitaires" "Chiffres d'affaires"
+Pas super pratique mais cela me suffit     
 """
 
 
