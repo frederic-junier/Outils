@@ -7,6 +7,7 @@ d'équation y = a * x + b et reset pour afficher la droite de régression
 * usage en ligne de commande :
      python3 nuage.py  chemin_vers_fichier_csv [point moyen:True|False] [ajustement affine : True|False] [x label:str] [y label:str]
 par exemple : python3 nuage.py exemple1_cours.csv True True "Dépenses publicitaires" "Chiffres d'affaires"
+python3 nuage.py exemple1_cours.csv    sans option va générer juste le nuage
 Pas super pratique mais cela me suffit     
 """
 
