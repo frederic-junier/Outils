@@ -51,7 +51,15 @@ def dessiner_nuage(x:List[float], y:List[float], point_moyen:bool=True, regressi
     fig, ax = plt.subplots()
     fig.set_size_inches((10, 10))   
 
-    
+    print(x, y)
+    #on trie d'abord la série par abscisse croissante
+    serie = [(xi, yi) for (xi, yi) in zip(x, y)]
+    serie.sort()  #tri par abscisse croissante
+    serie = np.array(serie) #conversion en array pour le slicing par colonne
+    x = serie[:,0]
+    y = serie[:,1]
+    print(x, y)
+
     xmin, xmax = min(x), max(x)
     ymin, ymax  = min(y), max(y)
     ax.set_xlim([xmin - (xmax-xmin) * 0.1, xmax * 1.1])
@@ -98,6 +106,7 @@ def dessiner_nuage(x:List[float], y:List[float], point_moyen:bool=True, regressi
 
         a_init = covariance(x, y) / variance(x)
         b_init = yg - a_init * xg
+        print(a_init, b_init)
         droite, = ax.plot(x, f(x, a_init, b_init) , ls='-', marker='x', color = 'g', markeredgewidth=2, markersize=15)
 
         
@@ -119,15 +128,16 @@ def dessiner_nuage(x:List[float], y:List[float], point_moyen:bool=True, regressi
 
         # Make a vertically oriented slider to control the coef b
         ax_b = plt.axes([0.1, 0.25, 0.0225, 0.63], facecolor=axcolor)
+        y0_regression = f(0, a_init, b_init) 
         b_slider = Slider(
             ax=ax_b,
             label="Ordonnée à l'origine b",
-            valmin= 0.5*ymin if ymin >= 0 else 2*ymin,
-            valmax=2*ymax if ymax >= 0 else 0.5 * ymax,
+            valmin= 0.25 * y0_regression  if y0_regression >= 0 else 4 * y0_regression,
+            valmax=4 * y0_regression  if y0_regression >= 0 else 0.25 * y0_regression,
             valinit=b_init,
             orientation="vertical"
         )
-
+        print(2 * ymax)
         #Titre
         y_ajust = f(x, a_slider.val, b_slider.val)
         ax.set_title(f'Ajustement affine \n Correlation linéaire : {correlation_lineaire(x, y):.3f}\n Moindres carrés = {moindres_carre(y,y_ajust):.3f}')
@@ -154,11 +164,12 @@ def dessiner_nuage(x:List[float], y:List[float], point_moyen:bool=True, regressi
         def reset(event):
             a_slider.reset()
             b_slider.reset()
+
             
         button.on_clicked(reset)
     
     plt.show()
-    fig.savefig(filename.split('.')[-2] + '.png')
+    fig.savefig(filename.split('.')[-2] + '.pdf')
 
 
 if __name__ == "__main__":    
